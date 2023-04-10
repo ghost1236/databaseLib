@@ -4,9 +4,8 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import net.common.databaselib.DBUtils.convertMapToContentValues
-import net.common.databaselib.Listener
 
-object NfSQLManager {
+object SQLManager {
 
     private lateinit var sqlLiteHelper: SQLiteHelper
     private lateinit var sqlChiperHelper: SQLChiperHelper
