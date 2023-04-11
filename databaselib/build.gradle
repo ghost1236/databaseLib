@@ -11,7 +11,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'net.common.databaselib'
                 artifactId = 'databaselib'
-                version = '1.0.0'
+                version = '1.0.2'
             }
 
             debug(MavenPublication) {
@@ -19,20 +19,20 @@ afterEvaluate {
                 from components.debug
                 groupId = 'net.common.databaselib'
                 artifactId = 'databaselib'
-                version = '1.0.0'
+                version = '1.0.2'
             }
         }
     }
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 33
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,7 +66,7 @@ dependencies {
 
 
 task deleteObjectJar(type:Delete){
-    delete'release/nfdatabasekt.jar'
+    delete'release/databaselib.jar'
 }
 
 // release 폴더에 library 이름으로 jar 생성.
@@ -74,7 +74,7 @@ task exportJar(type: Copy){
     from('build/intermediates/aar_main_jar/release/')
     into('release/')
     include('classes.jar')
-    rename('classes.jar', 'nfdatabasekt.jar')
+    rename('classes.jar', 'databaselib.jar')
 }
 
 exportJar.dependsOn(deleteObjectJar, build)
