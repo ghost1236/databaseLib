@@ -1,5 +1,6 @@
 package net.common.databaselib
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
@@ -88,8 +89,12 @@ object SQLManager {
         return count
     }
 
-    fun insert(tableName: String, map: Map<String, Any>) {
-        if (isPassword) sqlChiperHelper.insert(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insert(tableName, map.convertMapToContentValues())
+    fun insert(tableName: String, values: ContentValues) : Long {
+        return if (isPassword) sqlChiperHelper.insert(tableName, values) else sqlLiteHelper.insert(tableName, values)
+    }
+
+    fun insert(tableName: String, map: Map<String, Any>) : Long {
+        return if (isPassword) sqlChiperHelper.insert(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insert(tableName, map.convertMapToContentValues())
     }
 
     fun insertAllNoTransaction(tableName: String, list: List<Map<String, Any>>) : Int {
