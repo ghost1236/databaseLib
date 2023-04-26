@@ -97,6 +97,10 @@ object SQLManager {
         return if (isPassword) sqlChiperHelper.insert(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insert(tableName, map.convertMapToContentValues())
     }
 
+    fun insertOrUpdate(tableName: String, map: Map<String, Any>) : Long {
+        return if (isPassword) sqlChiperHelper.insertOrUpdate(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insertOrUpdate(tableName, map.convertMapToContentValues())
+    }
+
     fun insertAllNoTransaction(tableName: String, list: List<Map<String, Any>>) : Int {
         var count = 0
         for (map in list) {
