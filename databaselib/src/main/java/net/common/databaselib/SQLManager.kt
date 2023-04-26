@@ -110,6 +110,15 @@ object SQLManager {
         return count
     }
 
+    fun insertOrUpdateAllNoTransaction(tableName: String, list: List<Map<String, Any>>) : Int {
+        var count = 0
+        for (map in list) {
+            insertOrUpdate(tableName, map)
+            count++
+        }
+        return count
+    }
+
     fun update(tableName: String, map: Map<String, Any>, where: String) : Long {
         return if (isPassword) sqlChiperHelper.update(tableName, map.convertMapToContentValues(), where, null) else sqlLiteHelper.update(tableName, map.convertMapToContentValues(), where, null)
     }
