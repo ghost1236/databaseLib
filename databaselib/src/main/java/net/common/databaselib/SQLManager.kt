@@ -40,6 +40,14 @@ object SQLManager {
         }
     }
 
+    fun createTable(sql: String) {
+        try {
+            if (isPassword) sqlChiperHelper.create(sql) else sqlLiteHelper.create(sql)
+        } catch (e: SQLiteException) {
+            e.printStackTrace()
+        }
+    }
+
     fun closeCursor(cursor: Cursor?) {
         cursor?.let {
             cursor.close()
