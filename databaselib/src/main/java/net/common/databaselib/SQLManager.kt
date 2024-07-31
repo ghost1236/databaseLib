@@ -32,22 +32,6 @@ object SQLManager {
         })
     }
 
-    fun setDatabaseListener(listener: (Int, Int) -> Unit) {
-        if(isPassword) {
-            sqlChiperHelper.listener = object : Listener.OnDatabaseListener {
-                override fun onUpgrade(oldVersion: Int, newVersion: Int) {
-                    listener(oldVersion, newVersion)
-                }
-            }
-        } else {
-            sqlLiteHelper.listener = object : Listener.OnDatabaseListener {
-                override fun onUpgrade(oldVersion: Int, newVersion: Int) {
-                    listener(oldVersion, newVersion)
-                }
-            }
-        }
-    }
-
     fun createTable(tableQueryList: ArrayList<String>) {
         try {
             if (isPassword) sqlChiperHelper.createTable(tableQueryList) else sqlLiteHelper.crateTable(tableQueryList)
