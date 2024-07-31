@@ -78,6 +78,10 @@ class SQLChiperHelper(context: Context?, dbName: String, dbVersion: Int, passwor
         return mdb.insert(tableName, "", values)
     }
 
+    fun insertOrUpdate(tableName: String, values: ContentValues) : Long {
+        return mdb.insertWithOnConflict(tableName, null, values, SQLiteDatabase.CONFLICT_REPLACE)
+    }
+
     fun update(tableName: String, values: ContentValues, where: String, condition: Array<String>?) : Long {
         return mdb.update(tableName, values, where, condition).toLong()
     }

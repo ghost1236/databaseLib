@@ -1,12 +1,12 @@
 package net.common.databaselib
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteException
 import net.common.databaselib.DBUtils.convertMapToContentValues
-import net.common.databaselib.Listener
 
-object NfSQLManager {
+object SQLManager {
 
     private lateinit var sqlLiteHelper: SQLiteHelper
     private lateinit var sqlChiperHelper: SQLChiperHelper
@@ -89,14 +89,31 @@ object NfSQLManager {
         return count
     }
 
-    fun insert(tableName: String, map: Map<String, Any>) {
-        if (isPassword) sqlChiperHelper.insert(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insert(tableName, map.convertMapToContentValues())
+    fun insert(tableName: String, values: ContentValues) : Long {
+        return if (isPassword) sqlChiperHelper.insert(tableName, values) else sqlLiteHelper.insert(tableName, values)
+    }
+
+    fun insert(tableName: String, map: Map<String, Any>) : Long {
+        return if (isPassword) sqlChiperHelper.insert(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insert(tableName, map.convertMapToContentValues())
+    }
+
+    fun insertOrUpdate(tableName: String, map: Map<String, Any>) : Long {
+        return if (isPassword) sqlChiperHelper.insertOrUpdate(tableName, map.convertMapToContentValues()) else sqlLiteHelper.insertOrUpdate(tableName, map.convertMapToContentValues())
     }
 
     fun insertAllNoTransaction(tableName: String, list: List<Map<String, Any>>) : Int {
         var count = 0
         for (map in list) {
             insert(tableName, map)
+            count++
+        }
+        return count
+    }
+
+    fun insertOrUpdateAllNoTransaction(tableName: String, list: List<Map<String, Any>>) : Int {
+        var count = 0
+        for (map in list) {
+            insertOrUpdate(tableName, map)
             count++
         }
         return count
