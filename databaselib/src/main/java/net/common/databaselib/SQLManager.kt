@@ -12,16 +12,41 @@ object SQLManager {
     private lateinit var sqlChiperHelper: SQLChiperHelper
     private var isPassword: Boolean = false
 
-    fun init(context: Context, dbName: String, dbVersion: Int, listener: Listener.OnDatabaseListener) {
+    var upgradeCallback: ((Int,Int)->Unit)? = null
+
+    fun init(context: Context, dbName: String, dbVersion: Int) {
         isPassword = false
-        sqlLiteHelper = SQLiteHelper(context, dbName, dbVersion, listener)
+        sqlLiteHelper = SQLiteHelper(context, dbName, dbVersion, object : Listener.OnDatabaseListener {
+            override fun onUpgrade(oldVersion: Int, newVersion: Int) {
+                upgradeCallback?.invoke(oldVersion, newVersion)
+            }
+        })
     }
 
-    fun init(context: Context, dbName: String, dbVersion: Int, password: String, listener: Listener.OnDatabaseListener) {
+    fun init(context: Context, dbName: String, dbVersion: Int, password: String) {
         isPassword = true
-        sqlChiperHelper = SQLChiperHelper(context, dbName, dbVersion, password, listener)
+        sqlChiperHelper = SQLChiperHelper(context, dbName, dbVersion, password, object : Listener.OnDatabaseListener {
+            override fun onUpgrade(oldVersion: Int, newVersion: Int) {
+                upgradeCallback?.invoke(oldVersion, newVersion)
+            }
+        })
     }
 
+    fun setDatabaseListener(listener: (Int, Int) -> Unit) {
+        if(isPassword) {
+            sqlChiperHelper.listener = object : Listener.OnDatabaseListener {
+                override fun onUpgrade(oldVersion: Int, newVersion: Int) {
+                    listener(oldVersion, newVersion)
+                }
+            }
+        } else {
+            sqlLiteHelper.listener = object : Listener.OnDatabaseListener {
+                override fun onUpgrade(oldVersion: Int, newVersion: Int) {
+                    listener(oldVersion, newVersion)
+                }
+            }
+        }
+    }
 
     fun createTable(tableQueryList: ArrayList<String>) {
         try {
