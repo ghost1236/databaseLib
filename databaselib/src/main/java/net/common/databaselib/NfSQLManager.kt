@@ -12,14 +12,14 @@ object NfSQLManager {
     private lateinit var sqlChiperHelper: SQLChiperHelper
     private var isPassword: Boolean = false
 
-    fun init(context: Context, dbName: String, dbVersion: Int) {
+    fun init(context: Context, dbName: String, dbVersion: Int, listener: Listener.OnDatabaseListener) {
         isPassword = false
-        sqlLiteHelper = SQLiteHelper(context, dbName, dbVersion)
+        sqlLiteHelper = SQLiteHelper(context, dbName, dbVersion, listener)
     }
 
-    fun init(context: Context, dbName: String, dbVersion: Int, password: String) {
+    fun init(context: Context, dbName: String, dbVersion: Int, password: String, listener: Listener.OnDatabaseListener) {
         isPassword = true
-        sqlChiperHelper = SQLChiperHelper(context, dbName, dbVersion, password)
+        sqlChiperHelper = SQLChiperHelper(context, dbName, dbVersion, password, listener)
     }
 
     fun setDatabaseListener(listener: (Int, Int) -> Unit) {

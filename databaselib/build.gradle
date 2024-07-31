@@ -11,7 +11,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'net.common.databaselib'
                 artifactId = 'databaselib'
-                version = '1.0.0'
+                version = '1.0.1'
             }
 
             debug(MavenPublication) {
@@ -19,20 +19,20 @@ afterEvaluate {
                 from components.debug
                 groupId = 'net.common.databaselib'
                 artifactId = 'databaselib'
-                version = '1.0.0'
+                version = '1.0.1'
             }
         }
     }
 }
 
 android {
-    compileSdk 31
+    compileSdk 34
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 34
         versionCode 1
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

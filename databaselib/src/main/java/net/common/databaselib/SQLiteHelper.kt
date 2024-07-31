@@ -7,13 +7,14 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import net.common.databaselib.Listener
 
-class SQLiteHelper(context: Context, dbName: String, dbVersion: Int) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
+class SQLiteHelper(context: Context, dbName: String, dbVersion: Int, databaseListener: Listener.OnDatabaseListener) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
 
     var mdb: SQLiteDatabase
     var listener: Listener.OnDatabaseListener? = null
 
     init {
         mdb = writableDatabase
+        listener = databaseListener
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

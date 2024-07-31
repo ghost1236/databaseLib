@@ -8,13 +8,14 @@ import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SQLiteOpenHelper
 import kotlin.collections.ArrayList
 
-class SQLChiperHelper(context: Context?, dbName: String, dbVersion: Int, password: String) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
+class SQLChiperHelper(context: Context?, dbName: String, dbVersion: Int, password: String, databaseListener: Listener.OnDatabaseListener) : SQLiteOpenHelper(context, dbName, null, dbVersion) {
 
     var mdb: SQLiteDatabase
     var listener: Listener.OnDatabaseListener? = null
 
     init {
         mdb = getWritableDatabase(password)
+        listener = databaseListener
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
