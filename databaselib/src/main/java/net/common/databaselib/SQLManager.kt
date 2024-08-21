@@ -8,8 +8,8 @@ import net.common.databaselib.DBUtils.convertMapToContentValues
 
 object SQLManager {
 
-    private lateinit var sqlLiteHelper: SQLiteHelper
-    private lateinit var sqlChiperHelper: SQLChiperHelper
+    lateinit var sqlLiteHelper: SQLiteHelper
+    lateinit var sqlChiperHelper: SQLChiperHelper
     private var isPassword: Boolean = false
 
     var upgradeCallback: ((Int,Int)->Unit)? = null
