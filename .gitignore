@@ -147,3 +147,6 @@ fabric.properties
 .idea/runConfigurations.xml
 app/debug/output-metadata.json
 app/release/output-metadata.json
+.idea/deploymentTargetSelector.xml
+.idea/kotlinc.xml
+.idea/migrations.xml
