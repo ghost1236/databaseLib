@@ -47,9 +47,8 @@ afterEvaluate {
                 from components.release
                 groupId = 'net.common.databaselib'
                 artifactId = 'databaselib'
-                // 최신 스택(AGP8/SDK35) 변경은 소비자 compileSdk 요구가 바뀌는 breaking change → 메이저 2.0.0
-                // (기존 앱은 1.0.x 태그를 계속 사용하므로 영향 없음)
-                version = '2.0.0'
+                // 2.0.0 이미 배포됨 → UI 의존성(미사용) + 죽은 themes 제거 반영분이 2.0.1
+                version = '2.0.1'
             }
         }
     }
@@ -61,9 +60,7 @@ dependencies {
     implementation 'net.zetetic:sqlcipher-android:4.15.0@aar'
     implementation 'androidx.sqlite:sqlite:2.6.2'
 
-    implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    // UI 의존성(core-ktx/appcompat/material)은 DB 라이브러리라 모두 미사용 → 제거
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
