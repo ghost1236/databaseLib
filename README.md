@@ -10,7 +10,7 @@ repositories { maven { url 'https://jitpack.io' } }
 
 // app/build.gradle
 dependencies {
-    implementation 'com.github.ghost1236.databaseLib:databaselib:2.0.0'
+    implementation 'com.github.ghost1236.databaseLib:databaselib:2.0.1'
 }
 ```
 > ⚠️ **Kotlin 2.1.20 / AGP 8.6 / compileSdk 35** 로 빌드됨 → 소비 앱도 **Kotlin 2.1+, compileSdk 35** 필요.
